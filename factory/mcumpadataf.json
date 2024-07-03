@@ -1,0 +1,9 @@
+{
+	"name": "mcumpadataf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "aebde148-6672-49b1-a3a6-67e25599704e",
+		"tenantId": "c1c7db0a-4832-4a35-a501-3213b41310c4"
+	}
+}
