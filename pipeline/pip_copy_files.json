@@ -80,6 +80,7 @@
 										"type": "AzureBlobFSWriteSettings",
 										"metadata": [
 											{
+												"name": "ArchivoOutput\t",
 												"value": {
 													"value": "@item().name",
 													"type": "Expression"
