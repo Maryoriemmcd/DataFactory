@@ -80,7 +80,10 @@
 										"type": "AzureBlobFSWriteSettings",
 										"metadata": [
 											{
-												"value": ""
+												"value": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
 											}
 										]
 									},
