@@ -1,0 +1,23 @@
+{
+	"name": "OutputFolderFilesCopy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LINK_ADLS_DATAF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "capa_bronce",
+				"fileSystem": "mcumpa"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
