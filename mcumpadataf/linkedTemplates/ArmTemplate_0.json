@@ -158,6 +158,52 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/InputFolderFilesCopy_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LINK_ADLS_DATAF",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"ArchivoInput": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().ArchivoInput",
+							"type": "Expression"
+						},
+						"folderPath": "input",
+						"fileSystem": "mcumpa"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Cod_Categoria",
+						"type": "String"
+					},
+					{
+						"name": "Nombre",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LINK_ADLS_DATAF')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/OutputFolderFilesCopy')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -171,6 +217,43 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"folderPath": "capa_bronce",
+						"fileSystem": "mcumpa"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LINK_ADLS_DATAF')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputFolderFilesCopy_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LINK_ADLS_DATAF",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"ArchivoOutput": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().ArchivoOutput",
+							"type": "Expression"
+						},
 						"folderPath": "capa_bronce",
 						"fileSystem": "mcumpa"
 					},
@@ -267,16 +350,7 @@
 										"sink": {
 											"type": "DelimitedTextSink",
 											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings",
-												"metadata": [
-													{
-														"name": "ArchivoOutput\t",
-														"value": {
-															"value": "@item().name",
-															"type": "Expression"
-														}
-													}
-												]
+												"type": "AzureBlobFSWriteSettings"
 											},
 											"formatSettings": {
 												"type": "DelimitedTextWriteSettings",
@@ -296,7 +370,7 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "DelimitedText1",
+											"referenceName": "InputFolderFilesCopy_ADLS",
 											"type": "DatasetReference",
 											"parameters": {
 												"ArchivoInput": {
@@ -308,9 +382,14 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "OutputFolderFilesCopy",
+											"referenceName": "OutputFolderFilesCopy_ADLS",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"ArchivoOutput": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
 										}
 									]
 								}
@@ -325,8 +404,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/InputFilesFolder_ADLS')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]",
-				"[concat(variables('factoryId'), '/datasets/OutputFolderFilesCopy')]"
+				"[concat(variables('factoryId'), '/datasets/InputFolderFilesCopy_ADLS')]",
+				"[concat(variables('factoryId'), '/datasets/OutputFolderFilesCopy_ADLS')]"
 			]
 		}
 	]
