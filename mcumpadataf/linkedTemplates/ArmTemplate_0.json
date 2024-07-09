@@ -312,7 +312,7 @@
 							{
 								"activity": "Obtener metadata carpera input",
 								"dependencyConditions": [
-									"Skipped"
+									"Succeeded"
 								]
 							}
 						],
