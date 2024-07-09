@@ -77,16 +77,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings",
-										"metadata": [
-											{
-												"name": "ArchivoOutput\t",
-												"value": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										]
+										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -106,7 +97,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DelimitedText1",
+									"referenceName": "InputFolderFilesCopy_ADLS",
 									"type": "DatasetReference",
 									"parameters": {
 										"ArchivoInput": {
@@ -118,8 +109,14 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "OutputFolderFilesCopy",
-									"type": "DatasetReference"
+									"referenceName": "OutputFolderFilesCopy_ADLS",
+									"type": "DatasetReference",
+									"parameters": {
+										"ArchivoOutput": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
