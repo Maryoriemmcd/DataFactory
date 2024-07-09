@@ -37,16 +37,16 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Obtener metadata carpera input ",
+						"activity": "Obtener metadata carpera input",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Obtener metadata carpera input ').output.childItems",
+						"value": "@activity('Obtener metadata carpera input').output.childItems",
 						"type": "Expression"
 					},
 					"activities": [
